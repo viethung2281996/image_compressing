@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 from werkzeug import secure_filename
 import imghdr
+from pil import compress_PIL
 
 # Initialize the Flask application
 app = Flask(__name__)
@@ -34,19 +35,13 @@ def upload():
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         # Redirect the user to the uploaded_file route, which
         # will basicaly show on the browser the uploaded file
-        return redirect(url_for('uploaded_file',
-                                filename=filename))
-
+        filename = 'http://0.0.0.0:8080/uploads/' + filename
+        return render_template('upload.html', filename=filename)
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
-
-
-@app.route('/image/', methods=['POST'])
-def handle_image():
-    print request.form['projectFilepath']
 
 
 if __name__ == '__main__':
