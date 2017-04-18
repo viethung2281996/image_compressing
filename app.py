@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 from werkzeug import secure_filename
 import imghdr
-from pil import compress_PIL
+from PIL import Image
 
 # Initialize the Flask application
 app = Flask(__name__)
@@ -35,8 +35,35 @@ def upload():
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         # Redirect the user to the uploaded_file route, which
         # will basicaly show on the browser the uploaded file
-        filename = 'http://0.0.0.0:8080/uploads/' + filename
-        return render_template('upload.html', filename=filename)
+        file_in = './uploads/' + filename
+        compress_PIL(file_in, 1)
+        file_out = get_outfile(filename)
+        file_out = './uploads/' + file_out
+        return render_template('upload.html', file_in=file_in, file_out=file_out)
+
+
+def get_outfile(infile):
+    baseName, e = os.path.splitext(infile)
+    f, e = os.path.splitext(infile)
+    f = (baseName + str("_compress"))
+    outfile = f + ".jpg"
+    return outfile
+
+
+# File compressing by compress_PIL(path_file, 1)
+def compress_PIL(infile, times):
+    baseName, e = os.path.splitext(infile)
+    try:
+        f, e = os.path.splitext(infile)
+        f = (baseName + str("_compress"))
+        outfile = f + ".jpg"
+        #open previously generated file
+        compImg = Image.open(infile)
+        #compress file at 50% of previous quality
+        compImg.save(outfile, "JPEG", quality=50)
+    except IOError:
+        print("Cannot convert", infile)
+
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):

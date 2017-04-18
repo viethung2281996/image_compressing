@@ -16,6 +16,6 @@ def compress_PIL(infile, times):
         print("Cannot convert", infile)
         
 
-# if __name__ == '__main__':
-# infile = str(input("Filename to compress: "))
-# compress_PIL(infile, 1)
+if __name__ == '__main__':
+    infile = str(input("Filename to compress: "))
+    compress_PIL(infile, 1)
