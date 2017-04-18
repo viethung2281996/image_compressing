@@ -10,7 +10,7 @@ def compress_PIL(infile, times):
         #open previously generated file
         compImg = Image.open(infile)
         #compress file at 50% of previous quality
-        compImg.save(outfile, "JPEG", quality=50)
+        compImg.save(outfile, "JPEG", quality=20)
         infile = outfile
     except IOError:
         print("Cannot convert", infile)
