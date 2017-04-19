@@ -36,9 +36,9 @@ def upload():
         # Redirect the user to the uploaded_file route, which
         # will basicaly show on the browser the uploaded file
         file_in = './uploads/' + filename
-        # compress_PIL(file_in, 1)
-        # file_out = get_outfile(filename)
-        # file_out = './uploads/' + file_out
+        compress_PIL(file_in, 1)
+        file_out = get_outfile(filename)
+        file_out = './uploads/' + file_out
         return render_template('upload.html', file_in=file_in, file_out=file_out)
 
 
