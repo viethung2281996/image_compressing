@@ -6,6 +6,7 @@ body {
       line-height: 1.5;
       font-weight: 300;
     }
+
 #page-wrapper {
       display: flex;
       align-items: center;
@@ -13,13 +14,16 @@ body {
       overflow: hidden;
       min-height: 400px;
 }
+
 .preview-img {
       width: 100%;
       text-align: center;
 }
+
 .view > img {
       box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
 }
+
 .title {
       text-align: center;
       margin-bottom: 30px;
