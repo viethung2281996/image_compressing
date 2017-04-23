@@ -64,10 +64,12 @@ def compress_PIL(infile, times):
     try:
         f, e = os.path.splitext(infile)
         f = (baseName + str("_compress"))
+        # outfile = f + ".png"
         outfile = f + ".jpg"
         #open previously generated file
         compImg = Image.open(infile)
-        #compress file at 50% of previous quality
+        #compress file at 20% of previous quality
+        # compImg.save(outfile, "PNG", quality=20)
         compImg.save(outfile, "JPEG", quality=20)
     except IOError:
         print("Cannot convert", infile)
